@@ -1,11 +1,11 @@
 {
   "name": "ecommerce-api",
   "version": "1.0.0",
-  "description": "A full blown ecommerce-api",
+  "description": "An E-commerce API",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node sandbox.js",
-    "test": "nyc --reporter=html --reporter=text mocha  --require @babel/register"
+    "start": "nodemon --exec babel-node app.js",
+    "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha  --require @babel/register"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "nyc": "^13.3.0"
   },
   "dependencies": {
-    "dotenv": "^7.0.0"
+    "dotenv": "^7.0.0",
+    "mongoose": "^5.5.1"
   }
 }
