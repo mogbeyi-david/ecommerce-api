@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "A full blown ecommerce-api",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mogbeyi-david/ecommerce-api.git"
+  },
+  "author": "David Mogbeyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mogbeyi-david/ecommerce-api/issues"
+  },
+  "homepage": "https://github.com/mogbeyi-david/ecommerce-api#readme"
+}
