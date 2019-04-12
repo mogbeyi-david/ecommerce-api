@@ -1,7 +1,7 @@
 /**
  *
- * @param {number} firstNumber
- * @param {number} secondNumber
+ * @param firstNumber
+ * @param secondNumber
  * @returns {*}
  */
 function sum(firstNumber, secondNumber) {
