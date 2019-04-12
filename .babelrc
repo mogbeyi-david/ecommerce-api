@@ -1,15 +1,5 @@
 {
   "presets": [
-    [
-      "airbnb",
-      {
-        "targets": {
-          "node": "current"
-        },
-        "plugins": [
-          "transform-object-rest-spread"
-        ]
-      }
-    ]
+    "@babel/preset-env"
   ]
 }

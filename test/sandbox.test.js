@@ -1,10 +1,13 @@
-const sum = require('../sandbox');
-const assert = require('assert');
+import {expect} from 'chai';
 
-describe('Array', function () {
-  describe('sum', function () {
-    it('should return 10 when firstNumber is 5 and secondNumber is 5', function () {
-      assert.equal(sum(5, 5), 10);
-    });
-  });
-});
+import sum from '../sandbox';
+
+describe("index test", () => {
+  describe("sayHello function", () => {
+    it("should say Hello guys!", () => {
+
+      const result = sum(10, 10);
+      expect(result).to.equal(20);
+    })
+  })
+})
