@@ -42,7 +42,7 @@
     {
       "files": "*.test.js",
       "rules": {
-        "no-unused-expressions": "error"
+        "no-unused-expressions": "off"
       }
     }
   ]

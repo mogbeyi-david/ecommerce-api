@@ -4,9 +4,8 @@
  * @param secondNumber
  * @returns {*}
  */
-function sum(firstNumber, secondNumber) {
+const sum = (firstNumber, secondNumber) => {
   return firstNumber + secondNumber;
-}
+};
 
-
-module.exports = sum;
+export default sum;
