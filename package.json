@@ -4,7 +4,7 @@
   "description": "An E-commerce API",
   "main": "app.js",
   "scripts": {
-    "db:seed": "cd models/database/seeders && nodemon --exec babel-node seed.js",
+    "db:seed": "nodemon --exec babel-node models/database/seeders/seed.js",
     "sandbox": "nodemon --exec babel-node sandbox.js",
     "start": "nodemon --exec babel-node app.js",
     "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha  --require @babel/register"

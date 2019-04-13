@@ -12,15 +12,15 @@ class ShippingRegionSeeder {
    */
   static async generateFakeShippingRegion() {
     const shippingRegions = ['Please Select', 'US / Canada', 'Europe', 'Rest of World'];
-    console.log('---------Generating 4 Fake Shipping Regions-------------');
+    console.log('--Generating 4 Fake Shipping Regions--');
     try {
-      for (let count = 0; count < 3; count++) {
+      for (let count = 0; count <= 3; count++) {
         const shippingRegion = new ShippingRegion({
           shippingRegion: shippingRegions[count]
         });
         await shippingRegion.save();
       }
-      return console.log('---------Finished generating 4 Fake Shipping Regions-------------');
+      return console.log('--Finished generating 4 Fake Shipping Regions--');
     } catch (exception) {
       return console.log()
     }

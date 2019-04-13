@@ -16,7 +16,7 @@ class CustomerSeeder {
    */
   static async generateFakeCustomers() {
     try {
-      console.log('---------Generating 100 Fake Customers-------------');
+      console.log('--Generating 100 Fake Customers--');
       for (let counter = 0; counter < 100; counter++) {
         const newCustomer = {
           name: faker.name.findName(),
@@ -31,7 +31,7 @@ class CustomerSeeder {
           country: faker.address.country(),
           shippingRegionId: await ShippingRegion
             .findOne()
-            .skip(Math.floor(Math.random() * (await ShippingRegion.count()))),
+            .skip(Math.floor(Math.random() * (await ShippingRegion.countDocuments()))),
           dayPhoneNumber: faker.phone.phoneNumber(),
           nightPhoneNumber: faker.phone.phoneNumber(),
           mobilePhoneNumber: faker.phone.phoneNumber()
