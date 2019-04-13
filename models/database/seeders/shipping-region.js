@@ -10,7 +10,7 @@ class ShippingRegionSeeder {
    *
    * @returns {Promise<void>}
    */
-  async generateFakeShippingRegion() {
+  static async generateFakeShippingRegion() {
     const shippingRegions = ['Please Select', 'US / Canada', 'Europe', 'Rest of World'];
     console.log('---------Generating 4 Fake Shipping Regions-------------');
     try {
@@ -27,5 +27,4 @@ class ShippingRegionSeeder {
   }
 }
 
-const shippingRegionSeeder = new ShippingRegionSeeder();
-export default shippingRegionSeeder;
+export default ShippingRegionSeeder;

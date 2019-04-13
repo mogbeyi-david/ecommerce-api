@@ -14,7 +14,7 @@ class CustomerSeeder {
    *
    * @returns {Promise<void>}
    */
-  async generateFakeCustomers() {
+  static async generateFakeCustomers() {
     try {
       console.log('---------Generating 100 Fake Customers-------------');
       for (let counter = 0; counter < 100; counter++) {
@@ -47,8 +47,5 @@ class CustomerSeeder {
   };
 }
 
-//  Instantiate the CustomerSeeder class
-const customerSeeder = new CustomerSeeder();
 
-//  Export the instantiated object of the customer seeder class
-export default customerSeeder;
+export default CustomerSeeder;
