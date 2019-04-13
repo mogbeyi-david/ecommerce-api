@@ -1,5 +1,6 @@
 import faker from 'faker';
 import {Customer} from '../../../models';
+import {ShippingRegion} from '../../../models';
 import generateFakePassword from '../../../helpers/utility-functions/generate-fake-password';
 import generateRandomString from '../../../helpers/utility-functions/generate-random-string';
 
@@ -28,7 +29,9 @@ class CustomerSeeder {
           region: faker.address.state(),
           postalCode: faker.address.zipCode(),
           country: faker.address.country(),
-          shippingRegionId: 1,
+          shippingRegionId: await ShippingRegion
+            .findOne()
+            .skip(Math.floor(Math.random() * (await ShippingRegion.count()))),
           dayPhoneNumber: faker.phone.phoneNumber(),
           nightPhoneNumber: faker.phone.phoneNumber(),
           mobilePhoneNumber: faker.phone.phoneNumber()
