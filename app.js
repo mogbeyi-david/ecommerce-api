@@ -15,11 +15,13 @@ const accessLogStream = RequestLogger.log();
 const app = express();
 
 //  Use middlewares
-app.use(morgan('combined', {stream: accessLogStream}));
-//End of middlewares
+app.use(morgan('combined', { stream: accessLogStream }));
+// End of middlewares
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+export default server;
