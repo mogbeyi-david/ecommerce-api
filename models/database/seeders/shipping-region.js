@@ -1,28 +1,26 @@
-import {ShippingRegion} from '../../../models';
+import { ShippingRegion } from '../..';
 
 
 /**
  *  Class responsible for generating fake shipping regions
  */
 class ShippingRegionSeeder {
-
   /**
    *
-   * @returns {Promise<void>}
+   * @returns {Promise<*>}
    */
   static async generateFakeShippingRegion() {
     const shippingRegions = ['Please Select', 'US / Canada', 'Europe', 'Rest of World'];
-    console.log('--Generating 4 Fake Shipping Regions--');
     try {
-      for (let count = 0; count <= 3; count++) {
+      for (let count = 0; count <= 3; count += 1) {
         const shippingRegion = new ShippingRegion({
           shippingRegion: shippingRegions[count]
         });
         await shippingRegion.save();
       }
-      return console.log('--Finished generating 4 Fake Shipping Regions--');
+      return true;
     } catch (exception) {
-      return console.log()
+      return exception.message;
     }
   }
 }

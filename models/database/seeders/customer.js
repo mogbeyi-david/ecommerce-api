@@ -1,6 +1,6 @@
 import faker from 'faker';
-import {Customer} from '../../../models';
-import {ShippingRegion} from '../../../models';
+import { Customer } from '../..';
+import { ShippingRegion } from '../..';
 import generateFakePassword from '../../../helpers/utility-functions/generate-fake-password';
 import generateRandomString from '../../../helpers/utility-functions/generate-random-string';
 
@@ -9,15 +9,13 @@ import generateRandomString from '../../../helpers/utility-functions/generate-ra
  *  The Class responsible for generating fake customers
  */
 class CustomerSeeder {
-
   /**
    *
-   * @returns {Promise<void>}
+   * @returns {Promise<*>}
    */
   static async generateFakeCustomers() {
     try {
-      console.log('--Generating 100 Fake Customers--');
-      for (let counter = 0; counter < 100; counter++) { // run a for loop to create 100 customers
+      for (let counter = 0; counter < 100; counter += 1) { // run a for loop to create 100 customers
         const newCustomer = { // Declare new customer
           name: faker.name.findName(),
           email: faker.internet.email(),
@@ -39,12 +37,11 @@ class CustomerSeeder {
         const customer = new Customer(newCustomer);
         await customer.save(); // Save new customer
       }
-      return console.log('-----------Finished generating Fake Customers--------------');
+      return true;
     } catch (exception) {
-      console.log('--------Sorry, fake customers could not be generated-------------');
-      return console.log(exception.message);
+      return exception.message;
     }
-  };
+  }
 }
 
 
