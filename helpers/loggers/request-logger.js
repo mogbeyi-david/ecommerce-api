@@ -15,11 +15,10 @@ class RequestLogger {
     const logDirectory = path.join(__dirname, 'log');
     // Check if the logs directory exists and create it if it does not exist
     fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
-    const accessLogStream = rfs('access.log', {
+    return rfs('access.log', {
       interval: '1d', // Set the logging to be read use one file per day
       path: logDirectory
     });
-    return accessLogStream;
   }
 }
 
