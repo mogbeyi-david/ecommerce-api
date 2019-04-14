@@ -1,12 +1,11 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import rfs from "rotating-file-stream";
+import rfs from 'rotating-file-stream';
 
 /**
  *  Class responsible for anything that has to do with Logging requests
  */
 class RequestLogger {
-
   /**
    *
    * @returns {*}
