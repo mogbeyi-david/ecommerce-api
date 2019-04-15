@@ -9,13 +9,17 @@ import RequestLogger from './helpers/loggers/request-logger';
 let databaseURI = process.env.MONGO_URI;
 //  If the node environment is testing, switch the database to the testing database instead
 if (process.env.NODE_ENV === 'test') databaseURI = process.env.TEST_MONGO_URI;
-database.connect(databaseURI);
+database.connect(databaseURI)
+  .then(() => {
+    console.log('connected to the database')
+  })
+  .catch(error => console.log(error));
 
 const accessLogStream = RequestLogger.log();
 const app = express();
 
 //  Use middlewares
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('combined', {stream: accessLogStream}));
 // End of middlewares
 
 
