@@ -35,7 +35,6 @@ class ShippingRegionController {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }
   }
-
 }
 
 

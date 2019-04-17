@@ -61,4 +61,25 @@ describe('Testing Endpoints for Shipping Regions', () => {
       })
     });
   });
+
+  describe('GET ENDPOINTS', () => {
+    describe('Getting all the shipping regions', async () => {
+      it('should successfully return all the shipping regions', async () => {
+        // First we create two new shipping regions...
+        await ShippingRegion.collection.insertMany([
+          {
+            shippingRegion: 'shipping_region_1'
+          },
+          {
+            shippingRegion: 'shipping_region_2'
+          }
+        ]);
+        const response = await request(app).get(baseEndpoint);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body.data).to.be.a('array');
+      })
+    })
+  });
 });
