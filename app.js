@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 import database from './models/database/database';
 import RequestLogger from './helpers/loggers/request-logger';
 
+//  Pull in the routers
+import {shippingRegionRouter} from './api/v1';
+
 //  Choose the database to connect to based on node environment
 let databaseURI = process.env.MONGO_URI;
 //  If the node environment is testing, switch the database to the testing database instead
@@ -14,10 +17,6 @@ database.connect(databaseURI)
     console.log('connected to the database')
   })
   .catch(error => console.log(error));
-
-//  Pull in the routers
-
-import {shippingRegionRouter} from './api/v1/routes';
 
 
 //  Extract the request logging stream
@@ -40,7 +39,6 @@ app.use(express.json());
 
 
 // Route Handling middlewares
-
 app.use('/api/v1/shipping-regions', shippingRegionRouter);
 
 const port = process.env.PORT || 3000;

@@ -5,6 +5,8 @@ import {ShippingRegionController} from '../../../api/v1/controllers';
 const router = express.Router();
 
 
-router.post('/shipping-regions', ShippingRegionController.create);
+router.post('', ShippingRegionController.create);
 
-export default router;
+export {
+  router
+}
