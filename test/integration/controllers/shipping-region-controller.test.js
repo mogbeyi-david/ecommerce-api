@@ -77,8 +77,8 @@ describe('Testing Endpoints for Shipping Regions', () => {
         const response = await request(app).get(baseEndpoint);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(200);
-        expect(response.body.message).to.be.a('string');
         expect(response.body.data).to.be.a('array');
+        expect(response.body.data.length).to.equal(2);
       })
     })
   });
