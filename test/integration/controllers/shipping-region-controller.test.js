@@ -2,7 +2,8 @@ import 'babel-polyfill';
 import request from 'supertest';
 import {expect} from 'chai';
 import server from '../../../app';
-import {ShippingRegion} from '../../../models'
+import {ShippingRegion} from '../../../models';
+import generateRandomString from '../../../helpers/utility-functions/generate-random-string'
 
 let app;
 
@@ -40,11 +41,21 @@ describe('Testing Endpoints for Shipping Regions', () => {
         });
         await shippingRegion.save();
         // Then send a payload with the shipping region being the same as the created one
-        const payload = {shippingRegion: 'test_shipping_region'}; // Declare the empty payload
+        const payload = {shippingRegion: 'test_shipping_region'}; // Declare the payload
         // Send a post request to the endpoint
         const response = await request(app).post(baseEndpoint).send(payload);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(409);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      });
+
+      //   Test case for successfully creating the shipping region
+      it('should create a new shipping region for a proper payload', async () => {
+        const payload = {shippingRegion: generateRandomString()}; // Declare the payload
+        const response = await request(app).post(baseEndpoint).send(payload);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(201);
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
       })
