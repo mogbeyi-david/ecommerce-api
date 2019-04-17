@@ -11,7 +11,7 @@ const schema = Joi.object().keys({
  * @returns {Promise|SchemaType|ValidationResult<any>|*|string|boolean|void|ActiveX.IXMLDOMParseError}
  */
 const validateShippingRegion = (payload) => {
-  return Joi.validate(payload, schema); // Validate the payload against the schema and return the result
+  return Joi.validate(payload, schema); // Validate the payload against the schema and ret
 };
 
 export default validateShippingRegion;
