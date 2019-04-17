@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import morgan from 'morgan';
 import express from 'express';
-
+import bodyParser from 'body-parser';
 import database from './models/database/database';
 import RequestLogger from './helpers/loggers/request-logger';
 
@@ -20,6 +20,14 @@ const app = express();
 
 //  Use middlewares
 app.use(morgan('combined', {stream: accessLogStream}));
+
+// => parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
+
+// => parse application/json
+app.use(bodyParser.json());
+
+
 // End of middlewares
 
 
