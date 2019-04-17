@@ -1,6 +1,7 @@
 import ShippingRegion from '../../../models/shipping-region';
 import validateShippingRegion from '../../../validations';
 import * as HttpStatus from 'http-status-codes';
+import JsonResponse from '../../../helpers/response/json-response';
 
 
 class ShippingRegionController {
