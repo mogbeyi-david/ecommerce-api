@@ -12,7 +12,7 @@ class Database {
    */
   async connect(databaseURI) {
     try {
-      const result = await mongoose.connect(databaseURI, { useNewUrlParser: true });
+      const result = await mongoose.connect(databaseURI, {useCreateIndex: true, useNewUrlParser: true});
       if (result) return result;
     } catch (exception) {
       process.exit(1);

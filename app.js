@@ -15,6 +15,12 @@ database.connect(databaseURI)
   })
   .catch(error => console.log(error));
 
+//  Pull in the routers
+
+import {shippingRegionRouter} from './api/v1/routes';
+
+
+//  Extract the request logging stream
 const accessLogStream = RequestLogger.log();
 const app = express();
 
@@ -32,6 +38,10 @@ app.use(express.json());
 
 // End of middlewares
 
+
+// Route Handling middlewares
+
+app.use('/api/v1/shipping-regions', shippingRegionRouter);
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

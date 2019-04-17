@@ -6,3 +6,5 @@ const router = express.Router();
 
 
 router.post('/shipping-regions', ShippingRegionController.create);
+
+export default router;
