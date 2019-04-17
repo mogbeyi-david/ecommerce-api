@@ -9,8 +9,9 @@ class ShippingRegionController {
     // Run an API-level validation against the payload
     const {error, value} = validateShippingRegion(req.body);
     if (error) {
-      return JsonResponse.success(res, HttpStatus.BAD_REQUEST, error.details[0].message, value);
+      return JsonResponse.error(res, HttpStatus.BAD_REQUEST, error.details[0].message, value);
     }
+
   }
 
 }

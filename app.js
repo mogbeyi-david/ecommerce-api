@@ -16,7 +16,6 @@ database.connect(databaseURI)
   .then(() => {
     console.log('connected to the database')
   })
-  .catch(error => console.log(error));
 
 
 //  Extract the request logging stream
