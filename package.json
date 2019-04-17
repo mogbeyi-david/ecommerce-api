@@ -7,7 +7,7 @@
     "db:seed": "nodemon --exec babel-node models/database/seeders/seed.js",
     "sandbox": "nodemon --exec babel-node lie.js",
     "start": "nodemon --exec babel-node app.js",
-    "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 10000 \"test/**/*.js\"  --require @babel/register"
+    "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --timeout 10000 \"test/**/*.js\"  --require @babel/register --exit"
   },
   "repository": {
     "type": "git",

@@ -43,7 +43,6 @@ describe('Testing Endpoints for Shipping Regions', () => {
         const payload = {shippingRegion: 'test_shipping_region'}; // Declare the empty payload
         // Send a post request to the endpoint
         const response = await request(app).post(baseEndpoint).send(payload);
-        console.log(response);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(409);
         expect(response.body.message).to.be.a('string');

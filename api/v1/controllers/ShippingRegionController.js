@@ -12,6 +12,11 @@ class ShippingRegionController {
       return JsonResponse.error(res, HttpStatus.BAD_REQUEST, error.details[0].message, value);
     }
 
+    //  Check if shipping region already exists.
+    const existingShippingRegion = ShippingRegion.findOne({shippingRegion: req.body.shippingRegion});
+    if (existingShippingRegion) {
+      return JsonResponse.error(res, HttpStatus.CONFLICT, 'Shipping region already exists', req.body);
+    }
   }
 
 }

@@ -14,8 +14,8 @@ let databaseURI = process.env.MONGO_URI;
 if (process.env.NODE_ENV === 'test') databaseURI = process.env.TEST_MONGO_URI;
 database.connect(databaseURI)
   .then(() => {
-    console.log('connected to the database')
-  })
+    return true;
+  });
 
 
 //  Extract the request logging stream
