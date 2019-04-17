@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('', ShippingRegionController.create);
 router.get('', ShippingRegionController.getAll);
+router.get('/:shippingRegionId', ShippingRegionController.getOne);
 
 export {
   router

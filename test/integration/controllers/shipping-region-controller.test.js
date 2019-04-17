@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import request from 'supertest';
 import {expect} from 'chai';
+import mongoose from 'mongoose';
 import server from '../../../app';
 import {ShippingRegion} from '../../../models';
 import generateRandomString from '../../../helpers/utility-functions/generate-random-string'
@@ -79,6 +80,28 @@ describe('Testing Endpoints for Shipping Regions', () => {
         expect(response.status).to.equal(200);
         expect(response.body.data).to.be.a('array');
         expect(response.body.data.length).to.equal(2);
+      })
+    });
+
+    describe('Getting a single shipping region by its ID', () => {
+      it('should return 404 error for an ID that does not exist', async () => {
+        const fakeId = mongoose.Types.ObjectId();
+        const response = await request(app).get(`${baseEndpoint}${fakeId}`);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(404);
+        expect(response.body).to.be.a('object');
+      });
+
+      it('should return a 200 success response for a shipping region ID that exists', async () => {
+        const shippingRegion = new ShippingRegion({
+          shippingRegion: generateRandomString()
+        });
+        const result = await shippingRegion.save();
+        const shippingRegionId = result._id;
+        const response = await request(app).get(`${baseEndpoint}${shippingRegionId}`);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(200);
+        expect(response.body).to.be.a('object');
       })
     })
   });

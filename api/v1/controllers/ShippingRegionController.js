@@ -36,10 +36,35 @@ class ShippingRegionController {
     }
   }
 
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*|boolean|void>}
+   */
   async getAll(req, res) {
     try {
       const shippingRegions = await ShippingRegion.find({});
       return JsonResponse.success(res, HttpStatus.OK, 'Operation Successful', shippingRegions);
+    } catch (exception) {
+      return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
+    }
+  }
+
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*|boolean|void>}
+   */
+  async getOne(req, res) {
+    const shippingRegionId = req.params.shippingRegionId;
+    try {
+      const shippingRegion = await ShippingRegion.findById(shippingRegionId);
+      if (!shippingRegion) {
+        return JsonResponse.error(res, HttpStatus.NOT_FOUND, 'Shipping Region not found', shippingRegionId);
+      }
+      return JsonResponse.success(res, HttpStatus.OK, 'Operation Successful', shippingRegion);
     } catch (exception) {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }
