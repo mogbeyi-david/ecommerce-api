@@ -5,7 +5,13 @@ import JsonResponse from '../../../helpers/response/json-response';
 
 
 class ShippingRegionController {
-  create(req, res) {
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*|boolean|void>}
+   */
+  async create(req, res) {
     // Run an API-level validation against the payload
     const {error, value} = validateShippingRegion(req.body);
     if (error) {
@@ -13,9 +19,20 @@ class ShippingRegionController {
     }
 
     //  Check if shipping region already exists.
-    const existingShippingRegion = ShippingRegion.findOne({shippingRegion: req.body.shippingRegion});
-    if (existingShippingRegion) {
+    const existingShippingRegion = await ShippingRegion.find({shippingRegion: req.body.shippingRegion});
+    if (existingShippingRegion.length > 0) {
       return JsonResponse.error(res, HttpStatus.CONFLICT, 'Shipping region already exists', req.body);
+    }
+
+    //Try to create the new shipping region
+    try {
+      const newShippingRegion = new ShippingRegion({
+        shippingRegion: req.body.shippingRegion
+      });
+      const shippingRegion = await newShippingRegion.save(); // Save shipping region to the database
+      return JsonResponse.success(res, HttpStatus.CREATED, 'Shipping region created successfully', shippingRegion);
+    } catch (exception) {
+      return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }
   }
 
