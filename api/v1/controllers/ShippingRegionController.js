@@ -35,6 +35,15 @@ class ShippingRegionController {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }
   }
+
+  async getAll(req, res) {
+    try {
+      const shippingRegions = await ShippingRegion.find({});
+      return JsonResponse.success(res, HttpStatus.OK, 'Operation Successful', shippingRegions);
+    } catch (exception) {
+      return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
+    }
+  }
 }
 
 
