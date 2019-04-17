@@ -6,12 +6,12 @@ import JsonResponse from '../../../helpers/response/json-response';
 
 class ShippingRegionController {
   create(req, res) {
-    const {error, value} = validateShippingRegion(req.body);
-    if (error) {
-      return res.status(HttpStatus.BAD_REQUEST).send({message: error.details[0].message, data: value})
-    }
+    // Run an API-level validation against the payload
+    return res.status(200).send('Working');
   }
 
 }
 
-export default ShippingRegionController;
+
+const shippingRegionController = new ShippingRegionController();
+export default shippingRegionController;
