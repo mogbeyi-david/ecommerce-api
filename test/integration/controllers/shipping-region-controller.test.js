@@ -103,6 +103,6 @@ describe('Testing Endpoints for Shipping Regions', () => {
         expect(response.status).to.equal(200);
         expect(response.body).to.be.a('object');
       })
-    })
+    });
   });
 });
