@@ -61,6 +61,26 @@ describe('Testing Endpoints for Shipping Regions', () => {
         expect(response.body).to.be.a('object');
       })
     });
+
+    describe('Updating an Existing Shipping Region', () => {
+      it('should return 404 error for a shipping ID that does not exist', async () => {
+        const fakeId = mongoose.Types.ObjectId();
+        const payload = {shippingRegion: generateRandomString()};
+        const response = await request(app).put(`${baseEndpoint}${fakeId}`).send;
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(404);
+        expect(response.body).to.be.a('object');
+      });
+
+      it('should return a 400 error if no shipping region was passed in the request payload', async () => {
+        const payload = {}; // Declare the empty payload
+        const response = await request(app).post(baseEndpoint).send(payload); // Send a post request to the endpoint
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(400);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      });
+    });
   });
 
   describe('GET ENDPOINTS', () => {
