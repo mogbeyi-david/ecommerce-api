@@ -86,7 +86,7 @@ class ShippingRegionController {
         return JsonResponse.error(res, HttpStatus.NOT_FOUND, 'Shipping Region not found', shippingRegionId);
       }
 
-      const newShippingRegion = await ShippingRegion.findByIdAndUpdate(shippingRegionId, {
+      const newShippingRegion = await ShippingRegion.findOneAndUpdate({_id: shippingRegionId}, {
         $set: {
           shippingRegion: req.body.shippingRegion
         }

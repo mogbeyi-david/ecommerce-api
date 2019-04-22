@@ -81,7 +81,7 @@ describe('-- SHIPPING REGIONS --', () => {
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
       });
-      it('should return a 200 response for a proper payload', async () => {
+      it.only('should return a 200 response for a proper payload', async () => {
 
         //First we create a shipping region
         const shippingRegion = new ShippingRegion({
@@ -98,7 +98,7 @@ describe('-- SHIPPING REGIONS --', () => {
         expect(response.status).to.equal(200);
         expect(response.body.message).to.be.a('string');
         expect(response.body.data).to.be.a('object');
-        expect(response.body.data.shippingRegion).to.be('New shipping region');
+        expect(response.body.data.shippingRegion).to.equal('New shipping region');
       });
     });
   });
