@@ -45,7 +45,9 @@ class ShippingRegionController {
    */
   async getAll(req, res) {
     try {
+      // Simply query the database and get all the shipping regions inside it
       const shippingRegions = await ShippingRegion.find({});
+      // Return success response if it comes through
       return JsonResponse.success(res, HttpStatus.OK, 'Operation Successful', shippingRegions);
     } catch (exception) {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
