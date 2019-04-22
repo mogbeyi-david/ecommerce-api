@@ -71,6 +71,12 @@ class ShippingRegionController {
     }
   }
 
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*|boolean|void>}
+   */
   async update(req, res) {
     // Run an API-level validation against the payload
     const {error, value} = validateShippingRegion(req.body);
@@ -94,6 +100,27 @@ class ShippingRegionController {
         new: true
       });
       return JsonResponse.success(res, HttpStatus.OK, 'Shipping Region Updated Successfully', newShippingRegion);
+    } catch (exception) {
+      return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
+    }
+  }
+
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*|boolean|void>}
+   */
+  async delete(req, res) {
+    const shippingRegionId = req.params.shippingRegionId;
+    try {
+      const shippingRegion = await ShippingRegion.findById(shippingRegionId);
+      if (!shippingRegion) {
+        return JsonResponse.error(res, HttpStatus.NOT_FOUND, 'Shipping Region not found', shippingRegionId);
+      }
+
+      await ShippingRegion.findByIdAndRemove(shippingRegionId);
+      return JsonResponse.success(res, HttpStatus.NO_CONTENT, 'Operation Successful', null);
     } catch (exception) {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }

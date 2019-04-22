@@ -117,11 +117,42 @@ router.get('/:shippingRegionId', ShippingRegionController.getOne);
  *          schema:
  *            type: string
  *        500:
- *          description: Shipping region not found
+ *          description: Shipping region could not be updated at this time
  *          schema:
  *            type: string
  */
 router.put('/:shippingRegionId', ShippingRegionController.update);
+
+/**
+ * @swagger
+ * /api/v1/shipping-regions/{shippingRegionId}:
+ *    delete:
+ *      summary: Deletes a shipping region.
+ *      tags: [/api/v1/shipping-regions]
+ *      description: This should delete a single shipping region
+ *      parameters:
+ *        - in: path
+ *          name: shippingRegionId
+ *          description: The ID of the shipping region
+ *      responses:
+ *        200:
+ *          description: Response without any Body
+ *          schema:
+ *            type: string
+ *        400:
+ *          description: Failed Request
+ *          schema:
+ *            type: string
+ *        404:
+ *          description: Shipping region not found
+ *          schema:
+ *            type: string
+ *        500:
+ *          description: Shipping region could not be deleted at this time
+ *          schema:
+ *            type: string
+ */
+router.delete('/:shippingRegionId', ShippingRegionController.delete);
 
 export {
   router

@@ -62,7 +62,9 @@ describe('-- SHIPPING REGIONS --', () => {
         expect(response.body).to.be.a('object');
       })
     });
+  });
 
+  describe('PUT ENDPOINTS', () => {
     describe('Updating an Existing Shipping Region', () => {
       it('should return 404 error for a shipping ID that does not exist', async () => {
         const fakeId = mongoose.Types.ObjectId();
@@ -81,7 +83,7 @@ describe('-- SHIPPING REGIONS --', () => {
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
       });
-      it.only('should return a 200 response for a proper payload', async () => {
+      it('should return a 200 response for a proper payload', async () => {
 
         //First we create a shipping region
         const shippingRegion = new ShippingRegion({
@@ -139,4 +141,28 @@ describe('-- SHIPPING REGIONS --', () => {
       })
     });
   });
+
+  describe('DELETE ENDPOINTS', () => {
+    it('should return 404 error for a shipping ID that does not exist', async () => {
+      const fakeId = mongoose.Types.ObjectId();
+      const payload = {shippingRegion: generateRandomString()};
+      const response = await request(app).put(`${baseEndpoint}${fakeId}`).send(payload);
+      expect(response).to.be.a('object');
+      expect(response.status).to.equal(404);
+      expect(response.body).to.be.a('object');
+    });
+
+    it('should return a 200 response for a proper payload', async () => {
+
+      //First we create a shipping region
+      const shippingRegion = new ShippingRegion({
+        shippingRegion: generateRandomString()
+      });
+      const result = await shippingRegion.save();
+      const shippingRegionId = result._id;
+      const response = await request(app).delete(`${baseEndpoint}${shippingRegionId}`); // Send a put request to the endpoint
+
+      expect(response.status).to.equal(204);
+    });
+  })
 });
