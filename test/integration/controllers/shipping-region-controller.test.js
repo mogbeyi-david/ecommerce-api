@@ -4,13 +4,14 @@ import {expect} from 'chai';
 import mongoose from 'mongoose';
 import server from '../../../app';
 import {ShippingRegion} from '../../../models';
-import generateRandomString from '../../../helpers/utility-functions/generate-random-string'
+import generateRandomString from '../../../helpers/utility-functions/generate-random-string';
+import createTwoShippingRegions from '../../../helpers/test-functions/shipping-regions/create-two-shipping-regions';
 
 let app;
 
 const baseEndpoint = '/api/v1/shipping-regions/';
 
-describe('Testing Endpoints for Shipping Regions', () => {
+describe('-- SHIPPING REGIONS --', () => {
   //Declare the beforeEach hook for performing operations common to all test cases before the test run.
   beforeEach(() => {
     app = server;
@@ -66,7 +67,7 @@ describe('Testing Endpoints for Shipping Regions', () => {
       it('should return 404 error for a shipping ID that does not exist', async () => {
         const fakeId = mongoose.Types.ObjectId();
         const payload = {shippingRegion: generateRandomString()};
-        const response = await request(app).put(`${baseEndpoint}${fakeId}`).send;
+        const response = await request(app).put(`${baseEndpoint}${fakeId}`).send(payload);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(404);
         expect(response.body).to.be.a('object');
@@ -80,6 +81,25 @@ describe('Testing Endpoints for Shipping Regions', () => {
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
       });
+      it('should return a 200 response for a proper payload', async () => {
+
+        //First we create a shipping region
+        const shippingRegion = new ShippingRegion({
+          shippingRegion: generateRandomString()
+        });
+        const result = await shippingRegion.save();
+        const shippingRegionId = result._id;
+        const payload = {
+          shippingRegion: 'New shipping region'
+        }; // Declare the empty payload
+        const response = await request(app).put(`${baseEndpoint}${shippingRegionId}`).send(payload); // Send a put request to the endpoint
+
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body.data).to.be.a('object');
+        expect(response.body.data.shippingRegion).to.be('New shipping region');
+      });
     });
   });
 
@@ -87,14 +107,8 @@ describe('Testing Endpoints for Shipping Regions', () => {
     describe('Getting all the shipping regions', async () => {
       it('should successfully return all the shipping regions', async () => {
         // First we create two new shipping regions...
-        await ShippingRegion.collection.insertMany([
-          {
-            shippingRegion: 'shipping_region_1'
-          },
-          {
-            shippingRegion: 'shipping_region_2'
-          }
-        ]);
+        await createTwoShippingRegions();
+
         const response = await request(app).get(baseEndpoint);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(200);
