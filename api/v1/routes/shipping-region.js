@@ -79,6 +79,41 @@ router.get('', ShippingRegionController.getAll);
  */
 router.get('/:shippingRegionId', ShippingRegionController.getOne);
 
+/**
+ * @swagger
+ * /api/v1/shipping-regions:
+ *    post:
+ *      summary: creates a new shipping region.
+ *      tags: [/api/v1/shipping-regions]
+ *      consumes:
+ *        - application/json
+ *      description: Creates a new shipping region
+ *      parameters:
+ *        - in: path
+ *          name: shippingRegionId
+ *          description: The ID of the shipping region
+ *        - name: shippingRegion
+ *          in: body
+ *          description: shipping region details.
+ *          schema:
+ *            type: object
+ *            required: true
+ *            properties:
+ *              shippingRegion:
+ *                type: string
+ *                example: New Shipping Region
+ *      responses:
+ *        200:
+ *          description: Shipping region created successfully
+ *          schema:
+ *            type: string
+ *        400:
+ *          description: Could not create shipping region
+ *          schema:
+ *            type: string
+ */
+router.put('/:shippingRegionId', ShippingRegionController.update);
+
 export {
   router
 }

@@ -5,6 +5,7 @@ import JsonResponse from '../../../helpers/response/json-response';
 
 
 class ShippingRegionController {
+
   /**
    *
    * @param req
@@ -65,6 +66,34 @@ class ShippingRegionController {
         return JsonResponse.error(res, HttpStatus.NOT_FOUND, 'Shipping Region not found', shippingRegionId);
       }
       return JsonResponse.success(res, HttpStatus.OK, 'Operation Successful', shippingRegion);
+    } catch (exception) {
+      return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
+    }
+  }
+
+  async update(req, res) {
+    // Run an API-level validation against the payload
+    const {error, value} = validateShippingRegion(req.body);
+    if (error) {
+      return JsonResponse.error(res, HttpStatus.BAD_REQUEST, error.details[0].message, value);
+    }
+
+
+    const shippingRegionId = req.params.shippingRegionId;
+    try {
+      const shippingRegion = await ShippingRegion.findById(shippingRegionId);
+      if (!shippingRegion) {
+        return JsonResponse.error(res, HttpStatus.NOT_FOUND, 'Shipping Region not found', shippingRegionId);
+      }
+
+      const newShippingRegion = await ShippingRegion.findByIdAndUpdate(shippingRegionId, {
+        $set: {
+          shippingRegion: req.body.shippingRegion
+        }
+      }, {
+        new: true
+      });
+      return JsonResponse.success(res, HttpStatus.OK, 'Shipping Region Updated Successfully', newShippingRegion);
     } catch (exception) {
       return JsonResponse.error(res, HttpStatus.INTERNAL_SERVER_ERROR, exception.message, null);
     }
