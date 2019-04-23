@@ -12,12 +12,19 @@ let app;
 const baseEndpoint = '/api/v1/shipping-regions/';
 
 describe('-- SHIPPING REGIONS --', () => {
-  //Declare the beforeEach hook for performing operations common to all test cases before the test run.
+
+  /**
+   * Declare the beforeEach hook for performing operations common to all test cases before the test run.
+   * Here we re-initialize the server before every test
+   */
   beforeEach(() => {
     app = server;
   });
 
-  //Declare the afterEach hook for performing operations common to all test cases after the test run
+  /**
+   * Declare the afterEach hook for performing operations common to all test cases after the test run
+   * Here, we delete every shipping region in the database to create a fresh environment
+   */
   afterEach(async () => {
     await ShippingRegion.deleteMany({});
     app.close();
