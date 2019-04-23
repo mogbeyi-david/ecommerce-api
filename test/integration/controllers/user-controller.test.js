@@ -6,7 +6,6 @@ import server from '../../../app';
 import {Customer} from '../../../models';
 import generateRandomString from '../../../helpers/utility-functions/generate-random-string';
 import createTwoCustomers from '../../../helpers/test-functions/customers/create-two-customers';
-import ShippingRegion from "../../../models/shipping-region";
 
 let app;
 
