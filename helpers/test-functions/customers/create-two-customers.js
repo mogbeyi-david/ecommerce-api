@@ -1,7 +1,8 @@
 import Customer from "../../../models/shipping-region";
 import generateRandomString from '../../utility-functions/generate-random-string'
 
-async function createTwoCustomers() {
+
+const createTwoCustomers = async () => {
   await Customer.collection.insertMany([
     {
       name: generateRandomString(),
@@ -14,6 +15,7 @@ async function createTwoCustomers() {
       password: generateRandomString()
     }
   ]);
-}
+};
+
 
 export default createTwoCustomers;

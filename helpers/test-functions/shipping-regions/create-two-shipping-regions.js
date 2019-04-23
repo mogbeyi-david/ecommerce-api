@@ -1,7 +1,7 @@
 import ShippingRegion from "../../../models/shipping-region";
 import generateRandomString from '../../utility-functions/generate-random-string'
 
-async function createTwoShippingRegions() {
+const createTwoShippingRegions = async () => {
   await ShippingRegion.collection.insertMany([
     {
       shippingRegion: generateRandomString()
@@ -10,6 +10,6 @@ async function createTwoShippingRegions() {
       shippingRegion: generateRandomString()
     }
   ]);
-}
+};
 
 export default createTwoShippingRegions;
