@@ -3,8 +3,8 @@ import Joi from 'joi';
 // Declare the Joi validation schema
 const schema = Joi.object().keys({
   name: Joi.string().required(),
-  email: Joi.string().required().email,
-  password: Joi.string().required().minlength(8).alphanum(),
+  email: Joi.string().required().email(),
+  password: Joi.string().required()
 });
 
 /**

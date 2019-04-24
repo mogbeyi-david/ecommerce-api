@@ -30,4 +30,43 @@ describe('--CUSTOMER ENDPOINTS--', () => {
     await Customer.deleteMany({});
     app.close();
   });
+
+  describe('Post Endpoints', () => {
+    describe('Creating a new customer', () => {
+      it('should return a 400 error when there is a validation error with the payload', async () => {
+        // first, we declare a faulty payload.
+        const payload = {};
+        // Then we send a post request to the base endpoint
+        const response = await request(app).post(baseEndpoint).send(payload);
+
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(400);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      })
+
+      it('should return a 409 error if the customer already exists', async () => {
+        // First create a new customer using the customer Model and save it to the DB
+        const customer = new Customer({
+          name: generateRandomString(),
+          email: 'exists@gmail.com',
+          password: generateRandomString()
+        });
+        await customer.save();
+
+        // Then send a payload with the customer email being the same as the created one
+        const payload = {
+          name: generateRandomString(),
+          email: 'exists@gmail.com',
+          password: generateRandomString()
+        }; // Declare the payload
+        // Send a post request to the endpoint
+        const response = await request(app).post(baseEndpoint).send(payload);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(409);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      });
+    });
+  })
 });

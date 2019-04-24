@@ -54,6 +54,7 @@ app.use(express.json());
 
 // Route Handling middlewares
 app.use('/api/v1/shipping-regions', shippingRegionRouter);
+app.use('/api/v1/customers', shippingRegionRouter);
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
