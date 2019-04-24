@@ -4,19 +4,27 @@ import {expect} from 'chai';
 import mongoose from 'mongoose';
 import server from '../../../app';
 import {ShippingRegion} from '../../../models';
-import generateRandomString from '../../../helpers/utility-functions/generate-random-string'
+import generateRandomString from '../../../helpers/utility-functions/generate-random-string';
+import createTwoShippingRegions from '../../../helpers/test-functions/shipping-regions/create-two-shipping-regions';
 
 let app;
 
 const baseEndpoint = '/api/v1/shipping-regions/';
 
-describe('Testing Endpoints for Shipping Regions', () => {
-  //Declare the beforeEach hook for performing operations common to all test cases before the test run.
+describe('-- SHIPPING REGIONS --', () => {
+
+  /**
+   * Declare the beforeEach hook for performing operations common to all test cases before the test run.
+   * Here we re-initialize the server before every test
+   */
   beforeEach(() => {
     app = server;
   });
 
-  //Declare the afterEach hook for performing operations common to all test cases after the test run
+  /**
+   * Declare the afterEach hook for performing operations common to all test cases after the test run
+   * Here, we delete every shipping region in the database to create a fresh environment
+   */
   afterEach(async () => {
     await ShippingRegion.deleteMany({});
     app.close();
@@ -63,18 +71,53 @@ describe('Testing Endpoints for Shipping Regions', () => {
     });
   });
 
+  describe('PUT ENDPOINTS', () => {
+    describe('Updating an Existing Shipping Region', () => {
+      it('should return 404 error for a shipping ID that does not exist', async () => {
+        const fakeId = mongoose.Types.ObjectId();
+        const payload = {shippingRegion: generateRandomString()};
+        const response = await request(app).put(`${baseEndpoint}${fakeId}`).send(payload);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(404);
+        expect(response.body).to.be.a('object');
+      });
+
+      it('should return a 400 error if no shipping region was passed in the request payload', async () => {
+        const payload = {}; // Declare the empty payload
+        const response = await request(app).post(baseEndpoint).send(payload); // Send a post request to the endpoint
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(400);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      });
+      it('should return a 200 response for a proper payload', async () => {
+
+        //First we create a shipping region
+        const shippingRegion = new ShippingRegion({
+          shippingRegion: generateRandomString()
+        });
+        const result = await shippingRegion.save();
+        const shippingRegionId = result._id;
+        const payload = {
+          shippingRegion: 'New shipping region'
+        }; // Declare the empty payload
+        const response = await request(app).put(`${baseEndpoint}${shippingRegionId}`).send(payload); // Send a put request to the endpoint
+
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(200);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body.data).to.be.a('object');
+        expect(response.body.data.shippingRegion).to.equal('New shipping region');
+      });
+    });
+  });
+
   describe('GET ENDPOINTS', () => {
     describe('Getting all the shipping regions', async () => {
       it('should successfully return all the shipping regions', async () => {
         // First we create two new shipping regions...
-        await ShippingRegion.collection.insertMany([
-          {
-            shippingRegion: 'shipping_region_1'
-          },
-          {
-            shippingRegion: 'shipping_region_2'
-          }
-        ]);
+        await createTwoShippingRegions();
+
         const response = await request(app).get(baseEndpoint);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(200);
@@ -105,4 +148,28 @@ describe('Testing Endpoints for Shipping Regions', () => {
       })
     });
   });
+
+  describe('DELETE ENDPOINTS', () => {
+    it('should return 404 error for a shipping ID that does not exist', async () => {
+      const fakeId = mongoose.Types.ObjectId();
+      const payload = {shippingRegion: generateRandomString()};
+      const response = await request(app).put(`${baseEndpoint}${fakeId}`).send(payload);
+      expect(response).to.be.a('object');
+      expect(response.status).to.equal(404);
+      expect(response.body).to.be.a('object');
+    });
+
+    it('should return a 200 response for a proper payload', async () => {
+
+      //First we create a shipping region
+      const shippingRegion = new ShippingRegion({
+        shippingRegion: generateRandomString()
+      });
+      const result = await shippingRegion.save();
+      const shippingRegionId = result._id;
+      const response = await request(app).delete(`${baseEndpoint}${shippingRegionId}`); // Send a put request to the endpoint
+
+      expect(response.status).to.equal(204);
+    });
+  })
 });
