@@ -6,3 +6,7 @@ const router = express.Router(); // Get the express router
 
 
 router.post('', CustomerController.create);
+
+export {
+  router
+};

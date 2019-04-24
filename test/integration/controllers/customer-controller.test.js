@@ -43,16 +43,16 @@ describe('--CUSTOMER ENDPOINTS--', () => {
         expect(response.status).to.equal(400);
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
-      })
+      });
 
-      it('should return a 409 error if the customer already exists', async () => {
+      it.only('should return a 409 error if the customer already exists', async () => {
         // First create a new customer using the customer Model and save it to the DB
         const customer = new Customer({
           name: generateRandomString(),
           email: 'exists@gmail.com',
           password: generateRandomString()
         });
-        await customer.save();
+        const result = await customer.save();
 
         // Then send a payload with the customer email being the same as the created one
         const payload = {
@@ -62,6 +62,7 @@ describe('--CUSTOMER ENDPOINTS--', () => {
         }; // Declare the payload
         // Send a post request to the endpoint
         const response = await request(app).post(baseEndpoint).send(payload);
+        console.log(result, response.text);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(409);
         expect(response.body.message).to.be.a('string');

@@ -2,7 +2,6 @@ import * as HttpStatus from 'http-status-codes';
 import Customer from '../../../models/customer';
 import {validateCustomer} from '../../../validations';
 import JsonResponse from '../../../helpers/response/json-response';
-import ShippingRegion from "../../../models/shipping-region";
 
 
 /**
