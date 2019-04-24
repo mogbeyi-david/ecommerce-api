@@ -5,10 +5,11 @@
 const generateFakePassword = () => {
   let fakePassword = ''; // Declare the initial empty string
   // Declare a pool of random characters to choose from
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let counter = 0; counter <= 10; counter++)
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let counter = 0; counter <= 10; counter += 1) {
     // Fetch a random character and append it to the initial password
     fakePassword += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
   return fakePassword;
 };
 

@@ -1,5 +1,5 @@
-import Customer from "../../../models/shipping-region";
-import generateRandomString from '../../utility-functions/generate-random-string'
+import Customer from '../../../models/shipping-region';
+import generateRandomString from '../../utility-functions/generate-random-string';
 
 
 const createTwoCustomers = async () => {
