@@ -1,5 +1,5 @@
 import express from 'express';
-import {ShippingRegionController} from '../../../api/v1/controllers';
+import { ShippingRegionController } from '../controllers';
 
 
 const router = express.Router();
@@ -156,4 +156,4 @@ router.delete('/:shippingRegionId', ShippingRegionController.delete);
 
 export {
   router
-}
+};

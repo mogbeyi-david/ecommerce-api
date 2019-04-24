@@ -4,8 +4,8 @@ import auth from './auth';
 import validateObjectId from './validate-objectId';
 
 
-
 // Export all the middlewares from the file
 export {
   admin, auth, validateObjectId
-}
+
+};

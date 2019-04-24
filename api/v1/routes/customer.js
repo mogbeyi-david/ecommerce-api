@@ -1,6 +1,4 @@
 import express from 'express';
-import {UserController} from '../../../api/v1/controllers';
+import { CustomerController } from '../controllers';
 
 const router = express.Router(); // Get the express router
-
-
