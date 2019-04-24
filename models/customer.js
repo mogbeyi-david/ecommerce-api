@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
-const { Schema } = mongoose;
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
+const {Schema} = mongoose;
 
 const customerSchema = new Schema({
   name: {
@@ -68,6 +71,15 @@ const customerSchema = new Schema({
     type: String
   }
 });
+
+customerSchema.methods.generateJsonWebToken = function () {
+  return jwt.sign({
+    userId: this._id,
+    name: this.name,
+    email: this.email,
+  }, jwtSecretKey);
+};
+
 
 // Create the customer model from the customer Schema
 const Customer = mongoose.model('Customer', customerSchema);

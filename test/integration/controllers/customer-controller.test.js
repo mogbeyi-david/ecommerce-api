@@ -52,7 +52,7 @@ describe('--CUSTOMER ENDPOINTS--', () => {
           email: 'exists@gmail.com',
           password: generateRandomString()
         });
-        const result = await customer.save();
+        await customer.save();
 
         // Then send a payload with the customer email being the same as the created one
         const payload = {
@@ -62,12 +62,27 @@ describe('--CUSTOMER ENDPOINTS--', () => {
         }; // Declare the payload
         // Send a post request to the endpoint
         const response = await request(app).post(baseEndpoint).send(payload);
-        console.log(result, response.text);
         expect(response).to.be.a('object');
         expect(response.status).to.equal(409);
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.be.a('object');
       });
+
+      //   Test case for successfully creating the shipping region
+      it('should create a new shipping region for a proper payload', async () => {
+        const payload = {
+          name: generateRandomString(),
+          email: 'test@gmail.com',
+          password: generateRandomString()
+        };
+
+        // Declare the payload
+        const response = await request(app).post(baseEndpoint).send(payload);
+        expect(response).to.be.a('object');
+        expect(response.status).to.equal(201);
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.be.a('object');
+      })
     });
   })
 });
