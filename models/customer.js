@@ -74,7 +74,7 @@ const customerSchema = new Schema({
 
 customerSchema.methods.generateJsonWebToken = function () {
   return jwt.sign({
-    userId: this._id,
+    customerId: this._id,
     name: this.name,
     email: this.email,
   }, jwtSecretKey);

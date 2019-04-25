@@ -45,7 +45,7 @@ describe('--CUSTOMER ENDPOINTS--', () => {
         expect(response.body).to.be.a('object');
       });
 
-      it.only('should return a 409 error if the customer already exists', async () => {
+      it('should return a 409 error if the customer already exists', async () => {
         // First create a new customer using the customer Model and save it to the DB
         const customer = new Customer({
           name: generateRandomString(),
@@ -68,8 +68,8 @@ describe('--CUSTOMER ENDPOINTS--', () => {
         expect(response.body).to.be.a('object');
       });
 
-      //   Test case for successfully creating the shipping region
-      it('should create a new shipping region for a proper payload', async () => {
+      //   Test case for successfully creating the customer
+      it('should create a new customer, sending a 201 response for a proper payload', async () => {
         const payload = {
           name: generateRandomString(),
           email: 'test@gmail.com',
