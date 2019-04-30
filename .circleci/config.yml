@@ -36,13 +36,12 @@ jobs:
     # run test!
     - run: npm test
 
-
-deployment:
-  master:
-    branch: staging
-    commands:
+  deployment:
+    master:
+      branch: staging
+      commands:
       - echo ' <====== LOGGING INTO DIGITAL OCEAN SERVER ======> '
-      - ssh root@67.205.169.51
+      - ssh root@67.205.169.51 "cd ~/ecommerce-api;./circle_deployer.sh"
       - cd /root/work
       - git pull origin staging
       - npm install
