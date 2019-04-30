@@ -36,13 +36,25 @@ jobs:
     # run test!
     - run: npm test
 
-  deployment:
+  deploy:
+    machine:
+      enabled: true
+    working_directory: ~/ecommerce-api
     master:
       branch: staging
-      commands:
-      - echo ' <====== LOGGING INTO DIGITAL OCEAN SERVER ======> '
-      - ssh root@67.205.169.51 "cd ~/ecommerce-api;./circle_deployer.sh"
-      - cd /root/work
-      - git pull origin staging
-      - npm install
-      - pm2 restart all
+    steps:
+      - run:
+          name: SSH into the server
+          command: ssh root@67.205.169.51 "cd ~/ecommerce-api;./circle_deployer.sh"
+      - run:
+          name: Change Directory into the Project
+          command: cd /root/work
+      - run:
+          name: Pull changes from the repository
+          command: git pull origin staging
+      - run:
+          name: Run NPM install
+          command: npm install
+      - run:
+          name: Restart PM2
+          command: pm2 restart all
