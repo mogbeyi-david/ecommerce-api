@@ -59,7 +59,7 @@ app.use('/api/v1/customers', customerRouter);
 
 app.get('/here', (req, res) => {
   return res.status(200).send({
-    message: 'The continuous deployment is working...'
+    message: 'This continuous deployment is working...'
   });
 });
 
