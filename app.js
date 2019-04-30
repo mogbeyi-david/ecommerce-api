@@ -57,6 +57,12 @@ app.use(express.json());
 app.use('/api/v1/shipping-regions', shippingRegionRouter);
 app.use('/api/v1/customers', customerRouter);
 
+app.get('/here', (req, res) => {
+  return res.status(200).send({
+    message: 'The continuous deployment is working...'
+  });
+});
+
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`App listening on port ${port}`);
