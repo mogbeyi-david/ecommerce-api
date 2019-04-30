@@ -8,7 +8,7 @@ class JsonResponse {
   /**
    *
    * @param {object} res
-   * @param {integer} statusCode
+   * @param {int} statusCode
    * @param {string} message
    * @param {object} data
    * @returns {*|boolean|void}
@@ -20,7 +20,7 @@ class JsonResponse {
   /**
    *
    * @param {object} res
-   * @param {integer} statusCode
+   * @param {int} statusCode
    * @param {string} message
    * @param {object} data
    * @returns {*|boolean|void}

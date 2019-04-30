@@ -4,7 +4,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import database from './models/database/database';
 import RequestLogger from './helpers/loggers/request-logger';
-import { shippingRegionRouter } from './api/v1';
+import {shippingRegionRouter} from './api/v1';
+import {customerRouter} from './api/v1';
 
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -38,10 +39,10 @@ database.connect(databaseURI)
 
 
 //  Use middlewares
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('combined', {stream: accessLogStream}));
 
 // => parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // => parse application/json
 app.use(bodyParser.json());
@@ -54,6 +55,13 @@ app.use(express.json());
 
 // Route Handling middlewares
 app.use('/api/v1/shipping-regions', shippingRegionRouter);
+app.use('/api/v1/customers', customerRouter);
+
+app.get('/here', (req, res) => {
+  return res.status(200).send({
+    message: 'The continuous deployment is working...'
+  });
+});
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
