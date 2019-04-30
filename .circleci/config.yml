@@ -35,3 +35,15 @@ jobs:
 
     # run test!
     - run: npm test
+
+
+deployment:
+  master:
+    branch: staging
+    commands:
+      - echo ' <====== LOGGING INTO DIGITAL OCEAN SERVER ======> '
+      - ssh root@67.205.169.51
+      - cd /root/work
+      - git pull origin staging
+      - npm install
+      - pm2 restart all
