@@ -85,4 +85,8 @@ describe('--CUSTOMER ENDPOINTS--', () => {
       })
     });
   })
+
+  describe('Get Endpoints', ()=>{
+
+  })
 });
